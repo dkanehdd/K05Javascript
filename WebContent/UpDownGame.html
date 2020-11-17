@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var rdNum = parseInt(Math.random()*100 +1);
+        var cnt = 0;
+        
+        function upDownGame(){
+            var num = document.getElementById("inputNum").value;
+            var img = document.getElementById("img");            
+            if(cnt==7){
+                alert("시도횟수가 초과하였습니다. 게임을 재시작합니다.");
+                location.reload();
+                return;
+            }
+            if(num<1||num>100){
+                img.src = "../images/error.jpg";
+                alert("1~100 사이의 정수를 입력해주세요");
+                return;
+            }
+            else if(num>rdNum){
+                img.src = "../images/down.jpg";               
+            }else if(num<rdNum){                
+                img.src = "../images/up.jpg";                
+            }else{               
+                img.src = "../images/answer.jpeg";
+                alert("정답입니다!!");
+                var restart = document.getElementById("restart");
+                restart.style.display = "inline";
+                document.getElementById("star").style.display = "inline";
+            }
+            cnt++;
+            var count = document.getElementById("count");
+                count.innerHTML = cnt;
+        }
+    </script>
+    <style>
+        #restart{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>업다운 게임</h2>
+    <h3>1~100사이의 숫자를 입력하세요</h3>
+    <h3>시도횟수 : <span id="count" style="font-size: 2em;"></span>회 </h3>
+
+    <span>숫자입력 : </span><input id="inputNum" type="number" > 
+    <button onclick="upDownGame();">확인</button>
+    <button id="restart" onclick="location.reload();">새로고침</button> <br>
+    <img id="img" src="../images/updowngame.jpg" alt="이미지" >
+    <img id="star" src="../images/3.png" alt="뚱이" style="display: none;">
+</body>
+</html>
