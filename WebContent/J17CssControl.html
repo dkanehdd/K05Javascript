@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J17CssControl.html</title>
+    <script>
+        //전역변수 : 기사부분의 폰트 사이즈를 저장
+        var pTag, pSize;
+
+        window.onload = function(){
+            pTag = document.getElementById("article");
+            //폰트사이즈 변경을 위해 숫자로 변경한다.
+            pSize = parseInt(pTag.style.fontSize);
+        }
+
+        function fnArticle(flag){
+            /*
+            JS에서 CSS속성 컨트롤
+                : DOM.style.CSS속성 = "속성값";
+                단 이때 CSS속성에 하이픈이 들어간다면, 제거후 첫글자를 
+                대문자로 변경한다. 또한 크기를 부여할때는 반드시 "px"과 같은
+                단위를 기술해야한다.
+            */
+            switch(flag){
+                case "+":
+                    pSize += 10;
+                    pTag.style.fontSize = pSize+"px";
+                    break;
+                case "-":
+                    pSize -= 10;
+                    pTag.style.fontSize = pSize+"px";
+                    break;
+                case "R":
+                    pTag.style.color = "red";break;
+                case "G":
+                    pTag.style.color = "green";break;
+                case "B":
+                    pTag.style.color = "blue";break;
+                case "Bo":
+                    pTag.style.fontWeight = "bold";break;
+                case "No":
+                    pTag.style.fontWeight = "normal";break;
+                case "Ce":
+                    pTag.style.textAlign = "center";break;
+                case "Le":
+                    pTag.style.textAlign = "left";break;
+                default:
+                    pTag.style.color = "black";
+            }
+        }
+        /*
+        문제] 글꼴바꾸기 버튼을 계속 누를때마다 아래 5가지
+        폰트가 토글되어 적용될수 있도록 함수를 정의하시오.
+        글꼴 : Verdana, 굴림체, 휴먼옛체, 궁서, Impact
+        */
+        var fontToggle = 0; //폰트 토글을 위한 전역변수
+        function setFont(){
+            //정수를 5로 나누면 나머지는 0~4까지 생성됨 
+            if(fontToggle%5==0)pTag.style.fontFamily = "Verdana";
+            else if(fontToggle%5==1)pTag.style.fontFamily = "굴림체";
+            else if(fontToggle%5==2)pTag.style.fontFamily = "휴먼옛체";
+            else if(fontToggle%5==3)pTag.style.fontFamily = "궁서";
+            else if(fontToggle%5==4)pTag.style.fontFamily = "Impact";
+            fontToggle++;
+        }
+
+    </script>
+</head>
+<body>
+    <h2>자바스크립트로 CSS제어하기</h2>
+    <input type="button" value="글꼴바꾸기" onclick="setFont();">
+    <fieldset>
+        <legend>신문기사</legend>
+        <button onclick="fnArticle('+');">+</button>
+        <button onclick="fnArticle('-');">-</button>
+        <button onclick="fnArticle('R');">Red</button>
+        <button onclick="fnArticle('G');">Green</button>
+        <button onclick="fnArticle('B');">Blue</button>
+        <button onclick="fnArticle('');">Black</button>
+        <button onclick="fnArticle('Bo');">볼드체</button>
+        <button onclick="fnArticle('No');">보통체</button>
+        <button onclick="fnArticle('Ce');">가운데정렬</button>
+        <button onclick="fnArticle('Le');">좌측정렬</button>
+    </fieldset>
+    <p style="font-size: 12px;" id="article">
+        오늘의 뉴스<br>
+        17일 0시 기준 신종 코로나바이러스 감염증(코로나19) 신규 확진 환자가 230명으로 나흘째 200명대로 집계됐다. 특히 지역사회 전파 우려가 있는 국내 발생 환자도 9월2일 이후 76일 만에 200명을 초과했다.
+        수도권 1주간 하루 평균 국내 발생 확진자가 111명을 넘어서자 정부는 이날 
+        중앙재난안전대책본부(중대본) 회의에서 수도권 사회적 거리 두기를 1.5단계로 
+        격상하겠다고 밝혔다. 나흘째 격상 기준을 초과한 강원권에 대해선 격상 지역 
+        범위를 놓고 논의가 진행 중이다.
+    </p>
+</body>
+</html>
